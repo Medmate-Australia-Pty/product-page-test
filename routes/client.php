@@ -1,7 +1,10 @@
 <?php
 
+namespace App\Models\Product;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,31 +16,39 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('products/{slug}', function ($slug) {
-  if ($slug !== 'fall-limited-edition-sneakers') {
-    return response()->json([
+  $product = Product::where("slug", $slug);
+
+  if(!$product){
+     return response()->json([
       'data' => null,
       'msg' => 'Item not found.'
-    ], 4040);
+    ], 4040); 
   }
+
+  $discount = $product->discount;
+  $images = $product->images;
+  $discounted = 0;
+
+  if($discount->type === "amount"){
+    $discounted = $product->price - $discount->discount;
+  } else {
+    $discounted = $product->price - ($product->price * ($discount->discount / 100));
+  }
+
   return response()->json([
     'data' => [
-      'id' => '1',
-      'name' => 'Fall Limited Edition Sneakers',
-      'description' => 'These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they\'ll withstand everything the weather can offer.',
+      'id' => $product->id,
+      'name' => $product->name,
+      'description' => $product->description,
       'price' => [
-        'full' => 250,
-        'discounted' => 125
+        'full' => $product->price,
+        'discounted' => $discounted
       ],
       'discount' => [
-        'type' => 'percent',
-        'amount' => 50
+        'type' => $discount->type,
+        'amount' => $discount->discount
       ],
-      'images' => [
-        '/images/image-product-1.jpg',
-        '/images/image-product-2.jpg',
-        '/images/image-product-3.jpg',
-        '/images/image-product-4.jpg',
-      ]
+      'images' => [ $images ]
     ]
   ]);
 });
