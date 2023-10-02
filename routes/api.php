@@ -18,4 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::middleware(['token.auth'])->group(function () {
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+});
