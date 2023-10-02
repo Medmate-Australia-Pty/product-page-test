@@ -6,8 +6,38 @@
             <div class="container product py-5">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <div class="bg-primary me-md-5 mb-5 mb-md-0">
-                            left
+                        <div class="me-md-5 mb-5 mb-md-0">
+                                
+                            <div class="carousel">
+                                <div id="carouselMain" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                    <div v-for="(image, index) in product.images" 
+                                        :key="index" 
+                                        :class="{ 'carousel-item active': 
+                                        index === 0 }" 
+                                        class="carousel-item">
+                                        <img :src="image" alt="">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselMain" role="button" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselMain" role="button" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </a>
+                                </div>
+                                
+                                <div class="thumbnails d-inline-flex align-items-center mt-3 mt-sm-5">
+                                    <div v-for="(image, index) in product.images" :key="index" class="thumbnail">
+                                        <a class="thumbnail" href="#carouselMain" role="button" data-bs-slide="{{index}}">
+                                            <img :src="image">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -22,7 +52,7 @@
                                 {{ product.discount.amount }}%
                             </div>
                         </div>
-                        <div class="product__price-original fw-bold pb-3 pb-md-4" v-if="product.price.full">
+                        <div class="product__price-original fw-bold pb-4 pb-md-5" v-if="product.price.full">
                             <del>${{ parseFloat(product.price.full).toFixed(2) }}</del>
                         </div>
                         <div class="product__actions d-md-inline-flex align-items-center d-grid gap-2">
@@ -95,7 +125,7 @@
 
 <script>
 import axios from 'axios';
-import VueNumericInput from 'vue-numeric-input';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default {
     props: {
@@ -143,7 +173,12 @@ export default {
             this.newValue = this.newValue - 1
             this.$emit('input', this.newValue)
             }
-        }
+        },
+        changeMainSlide(index) {
+            // Change the main slide when a thumbnail is clicked
+            const carousel = new bootstrap.Carousel('#carouselMain');
+            carousel.to(index);
+        },
     },
     watch: {
         value: {
@@ -210,6 +245,41 @@ export default {
 
                 @media (min-width: $desktop) {
                     width: 270px;
+                }
+            }
+
+            .carousel {
+                .carousel-item {
+                    img {
+                        border-radius: 15px;
+                    }
+                }
+
+                .thumbnails {
+                    gap: 0.8rem;
+
+                    .thumbnail {
+                        &:focus {
+                            img {
+                                border: 2px solid $orange;
+                                opacity: 0.5;
+                            }
+                        }
+
+                        img {
+                            border-radius: 15px;
+                            border: 2px solid transparent;
+
+                            &:hover {
+                                border: 2px solid $orange;
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+
+                    @media (min-width: $desktop) {
+                        gap: 2rem;
+                    }
                 }
             }
             
