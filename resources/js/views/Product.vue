@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- IMAGE GALLERY FOR LARGE AND MEDIUM SCREENS -->
         <div v-if="width > 800" class="image-box">
             <img
                 class="main-image"
@@ -19,6 +20,8 @@
                 :alt="data.name"
             />
         </div>
+
+        <!-- IMAGE CAROUSEL FOR MOBILE AND SMALLER SCREENS -->
         <div v-if="width < 800" class="mobile-image-box">
             <button
                 @click="renderPrevImageCarousel()"
@@ -57,6 +60,7 @@
             </button>
         </div>
 
+        <!-- PRODUCT INFORMATION AND BUTTONS SECTION -->
         <div class="text-box">
             <p class="sneaker-company" v-if="width < 800">SNEAKER COMPANY</p>
             <h1>{{ data.name }}</h1>
