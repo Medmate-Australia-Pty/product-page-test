@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div v-if="width > 1140" class="image-box">
+        <div v-if="width > 800" class="image-box">
             <img
                 class="main-image"
                 ref="image"
@@ -19,7 +19,7 @@
                 :alt="data.name"
             />
         </div>
-        <div v-if="width < 1140" class="mobile-image-box">
+        <div v-if="width < 800" class="mobile-image-box">
             <button
                 @click="renderPrevImageCarousel()"
                 class="mobile-button-left"
@@ -28,7 +28,7 @@
                     <path
                         d="M11 1 3 9l8 8"
                         stroke="#1D2026"
-                        stroke-width="3"
+                        stroke-width="4"
                         fill="none"
                         fill-rule="evenodd"
                     />
@@ -49,7 +49,7 @@
                     <path
                         d="m2 1 8 8-8 8"
                         stroke="#1D2026"
-                        stroke-width="3"
+                        stroke-width="4"
                         fill="none"
                         fill-rule="evenodd"
                     />
@@ -58,16 +58,18 @@
         </div>
 
         <div class="text-box">
-            <p class="sneaker-company" v-if="width < 1140">SNEAKER COMPANY</p>
+            <p class="sneaker-company" v-if="width < 800">SNEAKER COMPANY</p>
             <h1>{{ data.name }}</h1>
             <p class="description">
                 {{ data.description }}
             </p>
-            <h2>
-                ${{ data.price.discounted }}.00
-                <span class="discount"> {{ data.discount.amount }} %</span>
-            </h2>
-            <s class="original-price">${{ data.price.full }}.00</s>
+            <div class="prices">
+                <h2>
+                    ${{ data.price.discounted }}.00
+                    <span class="discount"> {{ data.discount.amount }} %</span>
+                </h2>
+                <s class="original-price">${{ data.price.full }}.00</s>
+            </div>
             <div class="inputs">
                 <div class="quantityBox">
                     <span @click="decrement()"
@@ -110,7 +112,7 @@
                     ></span>
                 </div>
                 <div class="cart-button">
-                    <span
+                    <span style="margin: 0px 10px"
                         ><svg
                             width="22"
                             height="20"
@@ -151,17 +153,6 @@ export default {
         };
     },
     methods: {
-        handleResize() {
-            this.width = window.innerWidth;
-        },
-        increment() {
-            this.quantity++;
-        },
-        decrement() {
-            if (this.quantity > 0) {
-                this.quantity--;
-            }
-        },
         async getData() {
             try {
                 const res = await fetch(
@@ -171,6 +162,17 @@ export default {
                 this.data = dataObj.data;
             } catch (error) {
                 console.log(error);
+            }
+        },
+        handleResize() {
+            this.width = window.innerWidth;
+        },
+        increment() {
+            this.quantity++;
+        },
+        decrement() {
+            if (this.quantity > 0) {
+                this.quantity--;
             }
         },
         renderImage(imageLink, i) {
@@ -183,7 +185,6 @@ export default {
             }
             this.i++;
             this.$refs.image.src = this.data.images[this.i];
-            console.log(this.i, "next");
         },
         renderPrevImageCarousel(i) {
             if (this.i === 0) {
@@ -191,7 +192,6 @@ export default {
             }
             this.i--;
             this.$refs.image.src = this.data.images[this.i];
-            console.log(this.i, "prev");
         },
     },
 };
@@ -205,7 +205,7 @@ export default {
 .container {
     display: flex;
     flex-direction: row;
-    padding: 20px 200px 0px 200px;
+    padding: 20px 50px 0px 50px;
     align-items: start;
 }
 .image-box {
@@ -242,7 +242,6 @@ export default {
         font-size: 16px;
         padding: 3px 10px 3px 10px;
         border-radius: 5px;
-        margin: 0px 10px 10px 0px;
     }
     .original-price {
         opacity: 0.2;
@@ -250,6 +249,7 @@ export default {
     }
     .description {
         opacity: 0.5;
+        word-spacing: 4px;
     }
 
     .inputs {
@@ -260,12 +260,13 @@ export default {
         .quantityBox {
             display: flex;
             flex: 1 1 auto;
+            margin: 10px;
             justify-content: space-around;
             cursor: pointer;
             align-self: center;
             background-color: $color-light-grayish-blue;
             border-radius: 8px;
-            padding: 14px;
+            padding: 16px;
             text-align: center;
             font-size: 12px;
             font-weight: bold;
@@ -275,9 +276,9 @@ export default {
             display: flex;
             flex: 1 1 auto;
             padding: 12px;
-            justify-content: space-evenly;
             background-color: $color-orange;
             color: $color-white;
+            justify-content: center;
             border: none;
             border-radius: 5px;
             font-size: 14px;
@@ -288,14 +289,17 @@ export default {
 }
 
 /** MOBILE CSS */
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 800px) {
     .container {
         display: flex;
         flex-direction: column;
         padding: 0px;
     }
-    .image-box {
-        display: none;
+    .prices {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
     .text-box {
         margin: 0px;
@@ -322,18 +326,20 @@ export default {
         cursor: pointer;
         transform: translate(-60px, 180px);
         padding: 15px;
-        border-radius: 70%;
+        border-radius: 50%;
         z-index: 1;
         border: none;
+        opacity: 0.9;
     }
     .mobile-button-left {
         position: absolute;
         cursor: pointer;
         transform: translate(20px, 180px);
         padding: 15px;
-        border-radius: 70%;
+        border-radius: 50%;
         z-index: 1;
         border: none;
+        opacity: 0.9;
     }
 }
 </style>
