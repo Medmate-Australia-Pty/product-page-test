@@ -108,8 +108,12 @@
                 </div>
             </div>
         </div>
-        <!-- Display a loading message while fetching data -->
-        <div v-else>Loading product details...</div>
+        <div v-else class="loading">
+            <div class="spinner-border m-5" role="status">
+                <span class="visually-hidden"> Loading product details..</span>
+            </div>
+            Loading product details..
+        </div>
     </div>
 </template>
 
@@ -132,11 +136,17 @@ export default {
     },
     methods: {
         getProductData() {
+            let token = "2|2E2KfxtDKzJM8PnpFJPTv8APv4Xj6rZl5RL0kSfo";
             axios
-                .get("/client/products/fall-limited-edition-sneakers")
+                // .get("/client/products/fall-limited-edition-sneakers")
+                .get("/api/products/1", {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                })
                 .then((response) => {
                     console.log(response);
-                    this.product = response.data.data;
+                    this.product = response.data;
                 })
                 .catch((error) => {
                     console.error(error);
@@ -283,6 +293,13 @@ export default {
 }
 .carousel-control-next {
     display: none;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 996px) {
