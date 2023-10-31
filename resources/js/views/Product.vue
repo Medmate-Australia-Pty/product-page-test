@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     created() {
         const slug = this.$route.params.slug;
@@ -92,20 +93,32 @@ export default {
         };
     },
     methods: {
-        async getData(slug) {
-            const res = await fetch(
-                `/client/products/fall-limited-edition-sneakers`
-                // `/client/products/${slug}`
-            )
+        getData(slug) {
+            // Include token
+            const token = localStorage.getItem('authToken');
+            console.log('token: ' + token);
+            axios
+                .get("/client/products/fall-limited-edition-sneakers")
+                // Bug: 404page template won't reload after being navigated to (unless manually hit refresh)
+                // .get(`/client/products/${slug}`) 
 
-            // Bug: 404page template won't reload after being navigated to
-            if (res.status === 404) {
-                // Slug not found, redirect to the 404 route
-                this.$router.push({ name: '404page' });
-            } else {
-                const dataObj = await res.json();
-                this.data = dataObj.data;
-            }
+                // Retrieve from own API
+                // .get("/api/products/1", {
+                //     headers: {
+                //         Authorization: "Bearer " + token,
+                //     },
+                // })
+                .then((response) => {
+                    // console.log(response.data.data);
+                    this.data = response.data.data;
+                })
+            //  Code for 404 redirect 
+            // .catch((error) => {
+            //     console.error(error);
+            //     if (error.response && error.response.status === 404) {
+            //         this.$router.push({ name: "404page" }); // Redirect to the 404 route
+            //     }
+            // });
         },
         handleResize() {
             this.width = window.innerWidth;
