@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+// TODO: 404 page
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
