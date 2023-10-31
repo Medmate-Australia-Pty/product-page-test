@@ -1,19 +1,26 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from "vue-router";
 
-// TODO: 404 page
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      redirect: () => ({ name: 'product', params: { slug: 'fall-limited-edition-sneakers' } })
-    },
-    {
-      path: '/shop/product/:slug',
-      name: 'product',
-      component: () => import('./views/Product.vue')
-    }
-  ],
-})
+    history: createWebHashHistory(),
+    routes: [
+        {
+            path: "/",
+            redirect: () => ({
+                name: "product",
+                params: { slug: "fall-limited-edition-sneakers" },
+            }),
+        },
+        {
+            path: "/shop/product/:slug",
+            name: "product",
+            component: () => import("./views/Product.vue"),
+        },
+        {
+            path: "/404",
+            name: "404page",
+            component: () => import("./views/404page.vue"),
+        },
+    ],
+});
 
 export default router;

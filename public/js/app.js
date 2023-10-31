@@ -19797,25 +19797,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 
-
-// TODO: 404 page
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHashHistory)(),
   routes: [{
-    path: '/',
+    path: "/",
     redirect: function redirect() {
       return {
-        name: 'product',
+        name: "product",
         params: {
-          slug: 'fall-limited-edition-sneakers'
+          slug: "fall-limited-edition-sneakers"
         }
       };
     }
   }, {
-    path: '/shop/product/:slug',
-    name: 'product',
+    path: "/shop/product/:slug",
+    name: "product",
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_Product_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Product.vue */ "./resources/js/views/Product.vue"));
+    }
+  }, {
+    path: "/404",
+    name: "404page",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_404page_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/404page.vue */ "./resources/js/views/404page.vue"));
     }
   }]
 });
@@ -41680,7 +41684,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if (chunkId === "resources_js_views_Product_vue") return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Product_vue":1,"resources_js_views_404page_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

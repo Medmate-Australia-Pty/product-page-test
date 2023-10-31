@@ -72,7 +72,8 @@
 <script>
 export default {
     created() {
-        this.getData();
+        const slug = this.$route.params.slug;
+        this.getData(slug);
         window.addEventListener("resize", this.handleResize);
         this.handleResize();
     },
@@ -91,12 +92,20 @@ export default {
         };
     },
     methods: {
-        async getData() {
+        async getData(slug) {
             const res = await fetch(
-                "/client/products/fall-limited-edition-sneakers"
-            );
-            const dataObj = await res.json();
-            this.data = dataObj.data;
+                `/client/products/fall-limited-edition-sneakers`
+                // `/client/products/${slug}`
+            )
+
+            // Bug: 404page template won't reload after being navigated to
+            if (res.status === 404) {
+                // Slug not found, redirect to the 404 route
+                this.$router.push({ name: '404page' });
+            } else {
+                const dataObj = await res.json();
+                this.data = dataObj.data;
+            }
         },
         handleResize() {
             this.width = window.innerWidth;
@@ -166,28 +175,26 @@ $screen-desktop: 1440px;
     flex-direction: row;
     flex-wrap: wrap;
 
-    @include desktop {
-        gap: 33px;
+    gap: 33px;
 
-        .main-image {
-            width: 450px;
-        }
+    .main-image {
+        width: 450px;
+    }
 
-        .image-items {
-            width: 88px;
-        }
+    .image-items {
+        width: 88px;
+    }
 
-        .active-image-item {
-            width: 88px;
-            border-style: solid;
-            border-color: $color-orange;
-            opacity: 0.4;
-            border-width: 2px;
-        }
+    .active-image-item {
+        width: 88px;
+        border-style: solid;
+        border-color: $color-orange;
+        opacity: 0.4;
+        border-width: 2px;
+    }
 
-        img {
-            border-radius: $border-radius;
-        }
+    img {
+        border-radius: $border-radius;
     }
 }
 
