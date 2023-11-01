@@ -47,6 +47,10 @@ class ProductAPIController extends Controller
 
         $product = Product::find($id);
 
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+
         if (isset($product->discount) && $product->discount instanceof ProductDiscount) {
             $discount = $product->calculateProductDiscount($product);
             $discountType = $product->discount->type;
