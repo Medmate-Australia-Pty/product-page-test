@@ -19,5 +19,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//To display details about a product.
+// To display list of products.
+Route::get('products', [ProductAPIController::class, 'index']);
+
+// To display details about a product.
 Route::get('products/{id}', [ProductAPIController::class, 'show']);
+
+// To create a product.
+Route::post('products', [ProductAPIController::class, 'store']);
+
+// To update a product.
+Route::patch('products/{id}',  [ProductAPIController::class, 'update']);
+
+// To delete a product.
+Route::delete('products/{id}', [ProductAPIController::class, 'destroy']);
