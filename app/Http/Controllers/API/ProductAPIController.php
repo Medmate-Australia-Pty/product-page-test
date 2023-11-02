@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductAPIController extends Controller
 {
+
+    /**
+     * ProductAPIController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('client.credentials');
+    }
+
     /**
      * Display a list of Products.
      *
