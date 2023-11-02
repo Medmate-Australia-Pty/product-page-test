@@ -33,3 +33,6 @@ Route::patch('products/{id}',  [ProductAPIController::class, 'update']);
 
 // To delete a product.
 Route::delete('products/{id}', [ProductAPIController::class, 'destroy']);
+
+// Use this endpoint to generate access tokens for users.
+Route::post('oauth/token', 'Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
