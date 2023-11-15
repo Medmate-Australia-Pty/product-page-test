@@ -1,5 +1,5 @@
 # Backend Task
-
+ 
 ## Description:
 Your job is to create a simple API to retrieve information about a product.
 
