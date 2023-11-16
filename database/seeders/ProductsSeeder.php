@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use Faker\Factory;
 
 class ProductsSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
 
         for ($i = 0; $i < 10; $i++) {
             Product::create([
