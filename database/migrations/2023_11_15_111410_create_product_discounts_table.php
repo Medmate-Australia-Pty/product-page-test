@@ -15,7 +15,6 @@ class CreateProductDiscountsTable extends Migration
     {
         Schema::create('product_discounts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->enum('type', ['percent', 'amount']);
             $table->decimal('discount', $precision = 8, $scale = 2);
