@@ -9,23 +9,31 @@ use Tests\TestCase;
 class apiTest extends TestCase
 {
     
-    public function test_fetch_single_product()
+    public function test_fetch_single_product_successful()
     {
+        $response = $this->get('api/products/ea-non-fuga');
 
-        // $product = Product::factory()->create();
-
-        // $response = $this->getJson('/api/products', $this->product->id)
-        //     ->assertOk()
-        //     ->json('data');
-
-        // $this->assertEquals($response['name'], $this->list->name);
-
-        // $response = $this->getJson('/api/products/ea-non-fuga');
-
-        $response->assertStatus(200);
-        $this->assertJsonStringEqualsJsonString(
-            json_encode(['Mascot' => 'Tux']),
-            json_encode(['Mascot' => 'Tux'])
+        $response->assertExactJson(
+            array(
+                "id" => "1",
+                "name" => "Fall Limited Edition Sneakers",
+                "description" => "These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.",
+                "slug" => "fall-limited-edition-sneakers",
+                "price" => array(
+                    "full" => 250,
+                    "discounted" => 125
+                ),
+                "discount" => array(
+                    "type" => "percent",
+                    "amount" => 50
+                ),
+                "images" => [
+                    "image-path-1.png", 
+                    "image-path-2.png",
+                    "image-path-3.png",
+                    "image-path-4.png"
+                ]
+            )
         );
     }
 }
