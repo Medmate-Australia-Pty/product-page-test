@@ -10,8 +10,6 @@ class ProductsController extends Controller
 {
     public function show($slug)
     {
-        // TODO - fix query to return discount info as well. Then need to format it as required.
-
         $product = DB::table('products')
             ->select(
                 'products.*',
@@ -26,6 +24,7 @@ class ProductsController extends Controller
             ->groupBy('products.id', 'product_discounts.id')
             ->get();
 
+
         if(!empty($product))
         {
             return response()->json($product);
@@ -35,6 +34,9 @@ class ProductsController extends Controller
             return response()->json([
                 "message" => "product not found",
             ], 404);
+
+            // TODO - test that the 404 is returned when requesting a product that doesn't exist
+            // TODO - create full crud
         }
 
         
