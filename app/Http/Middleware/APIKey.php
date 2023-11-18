@@ -20,5 +20,3 @@ class ApiKey
     return $next($request);
   }
 }
-
-// TODO - write tests for with/without passing API key
