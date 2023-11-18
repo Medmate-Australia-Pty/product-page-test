@@ -41,7 +41,7 @@ class apiTest extends TestCase
 
     public function test_fetch_product_without_API_key() {
         //TODO - mock 403 Error response from database
-        $response = $this->get('api/products/this-product-doesnt-exist');
+        $response = $this->get('api/products/ea-non-fuga');
 
         $this->assertEquals('Authentication error', $response->original['error']);
         $this->assertEquals(403, $response->status());
