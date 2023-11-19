@@ -25,7 +25,6 @@ class ProductFactory extends Factory
         ];
     }
 
-    // TODO - use this method to instantiate tests
     public function mockData()
     {
         return $this->state(function (array $attributes) {
@@ -35,6 +34,19 @@ class ProductFactory extends Factory
                 'slug' => 'mock-slug',
                 'price' => 100.00,
                 'active' => true
+            ];
+        });
+    }
+
+    public function mockInactive()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'mock product',
+                'description' => 'mock description',
+                'slug' => 'mock-slug',
+                'price' => 100.00,
+                'active' => false
             ];
         });
     }

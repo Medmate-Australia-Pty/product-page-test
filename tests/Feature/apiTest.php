@@ -2,19 +2,30 @@
 
 namespace Tests\Feature;
 
+use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class apiTest extends TestCase
 {
-    // TODO - reinstate below line to refresh db once factory is implemented
-    // use RefreshDatabase;
+    use RefreshDatabase;
+
+    // TODO - test POST route
+    // TODO - test PUT route
+    // TODO - test DELETE route
+
+    // TODO - figure out how to make the controller call a mocked db to remove tests' dependency on db
     
     public function test_fetch_product_successful()
     {
-        // TODO - mock db to remove this dependency from test cases
-        $response = $this->get('api/products/quis-ab-provident',
+        Product::factory()
+            ->mockData()
+            ->hasImages(4)
+            ->hasDiscounts(1)
+            ->create();
+
+        $response = $this->get('api/products/mock-slug',
             ["Authorisation" => config('app.api_key')]
         );
 
@@ -32,7 +43,23 @@ class apiTest extends TestCase
     }
 
     public function test_fetch_non_existent_product() {
-        //TODO - mock 404 response from database
+
+        $response = $this->get('api/products/this-product-doesnt-exist',
+            ['Authorisation' => config('app.api_key')]
+        );
+
+        $this->assertEquals('Product not found', $response->original['message']);
+        $this->assertEquals(404, $response->status());
+    }
+
+    public function test_fetch_inactive_product() {
+
+        Product::factory()
+            ->mockInactive()
+            ->hasImages(4)
+            ->hasDiscounts(1)
+            ->create();
+
         $response = $this->get('api/products/this-product-doesnt-exist',
             ['Authorisation' => config('app.api_key')]
         );
@@ -42,12 +69,16 @@ class apiTest extends TestCase
     }
 
     public function test_fetch_product_without_API_key() {
-        //TODO - mock 403 Error response from database
-        $response = $this->get('api/products/quis-ab-provident');
+
+        Product::factory()
+            ->mockData()
+            ->hasImages(4)
+            ->hasDiscounts(1)
+            ->create();
+
+        $response = $this->get('api/products/mock-slug');
 
         $this->assertEquals('Authentication error', $response->original['error']);
         $this->assertEquals(403, $response->status());
     }
-
-    // TODO - write test for fetching inactive product
 }

@@ -14,10 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([
-        //     ProductsSeeder::class,
-        // ]);
-
         Product::factory()
             ->count(10)
             ->hasImages(4)

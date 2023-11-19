@@ -19,4 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('products/{slug}', [ProductsController::class, 'show']);
+Route::get('product/{slug}', [ProductsController::class, 'show']);
+Route::post('product', [ProductsController::class, 'store']);
+Route::put('product/{slug}', [ProductsController::class, 'update']);
+Route::delete('product/{slug}', [ProductsController::class, 'destroy']);

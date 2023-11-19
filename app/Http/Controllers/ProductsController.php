@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:65535',
+            'description' => 'nullable|string|max:65535',
+            'slug' => 'required|unique:products|string|max:100',
+            'price' => 'required|numeric',
+            'active' => 'required|boolean'
+        ]);
+
+        Product::create($request->all());
+        return response()->make('Successfully created', 201);
+    }
+
     public function show($slug)
     {
         //TODO - account for null entry in nullable fields
@@ -44,16 +58,50 @@ class ProductsController extends Controller
                 "slug" => $productData[0]->slug,
                 "price" => array(
                     "full" => (double) $productData[0]->price,
-                    "discounted" => $discountedPrice
+                    "discounted" => (double) number_format($discountedPrice, 2)
                 ),
                 "discount" => array(
                     "type" => $productData[0]->type,
-                    "amount" => (double) $productData[0]->discount
+                    "amount" => (int) $productData[0]->discount
                 ),
                 "images" => $images
             ];
 
             return response()->json($product);
+        } else {
+            return response()->json([
+                "message" => "Product not found",
+            ], 404);
+        }
+    }
+
+    public function update(Request $request, $slug) {
+        $request->validate([
+            'name' => 'nullable|string|max:65535',
+            'description' => 'nullable|string|max:65535',
+            'slug' => 'nullable|unique:products|string|max:100',
+            'price' => 'nullable|numeric',
+            'active' => 'nullable|boolean'
+        ]);
+
+        $product = Product::where('slug', $slug);
+
+        if (count($product->get())) {
+            $product->update($request->all());
+            return response()->make('Successfully updated', 200);
+        } else {
+            return response()->json([
+                "message" => "Product not found",
+            ], 404);
+        }
+    }
+
+    public function destroy($slug) {
+        $product = Product::where('slug', $slug);
+
+        if (count($product->get())) {
+            $product->delete();
+            return response()->make('Successfully deleted', 200);
         } else {
             return response()->json([
                 "message" => "Product not found",
