@@ -85,7 +85,7 @@ class APIProductStoreTest extends TestCase
 
     public function test_post_product_missing_authorisation() {
         $productData = [
-            'name' => 1, // wrong datatype - should be string
+            'name' => 'test name',
             'description' => 'test description',
             'slug' => 'test-slug',
             'price' => 100,

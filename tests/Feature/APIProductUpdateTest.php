@@ -32,7 +32,7 @@ class APIProductUpdateTest extends TestCase
         $this->post('/api/product', $this->initialProductData, $this->headers);
     }
 
-    public function test_put_product_successful() {
+    public function test_put_product_multiple_item_successful() {
         $productData = [
             'name' => 'new name',
             'description' => 'new description',
@@ -57,82 +57,127 @@ class APIProductUpdateTest extends TestCase
         $this->assertDatabaseCount('products', 1);
     }
 
-    // public function test_post_product_missing_data() {
-    //     $productData = [];
+    public function test_put_product_single_item_successful() {
+        $productData = [
+            'name' => 'new name',
+        ];
 
-    //     $this->post('/api/product', $productData, $this->headers);
+        $response = $this->put('/api/product/mock-slug', $productData, $this->headers);
 
-    //     $this->assertDatabaseCount('products', 0);
-    // }
+        $response->assertStatus(200);
 
-    // // test still creates a record if there is an extra 'wrong' field
-    // public function test_post_product_extra_data() {
-    //     $productData = [
-    //         'name' => 'test name',
-    //         'description' => 'test description',
-    //         'slug' => 'test-slug',
-    //         'price' => 100,
-    //         'active' => true,
-    //         'extra_field' => 'extra'
-    //     ];
+        $this->assertDatabaseHas('products', [
+            'name' => $productData['name'],
+            'description' => $this->initialProductData['description'],
+            'slug' => $this->initialProductData['slug'],
+            'price' => $this->initialProductData['price'],
+            'active' => $this->initialProductData['active'],
 
-    //     $this->post('/api/product', $productData, $this->headers);
+        ]);
 
-    //     $this->assertDatabaseCount('products', 1);
-    // }
+        $this->assertDatabaseCount('products', 1);
+    }
 
-    // public function test_post_product_wrong_data_type() {
-    //     $productData = [
-    //         'name' => 1, // wrong datatype - should be string
-    //         'description' => 'test description',
-    //         'slug' => 'test-slug',
-    //         'price' => 100,
-    //         'active' => true
-    //     ];
+    // test still creates a record if there is an extra 'wrong' field
+    public function test_put_product_extra_data() {
+        $productData = [
+            'name' => 'new name',
+            'description' => 'new description',
+            'slug' => 'new-slug',
+            'price' => 1,
+            'active' => false,
+            'extra_field' => 'extra field',
+        ];
 
-    //     $this->post('/api/product', $productData, $this->headers);
+        $response = $this->put('/api/product/mock-slug', $productData, $this->headers);
 
-    //     $this->assertDatabaseCount('products', 0);
-    // }
+        // record should not have been updated - should still show initial data
+        $this->assertDatabaseHas('products', [
+            'name' => $this->initialProductData['name'],
+            'description' => $this->initialProductData['description'],
+            'slug' => $this->initialProductData['slug'],
+            'price' => $this->initialProductData['price'],
+            'active' => $this->initialProductData['active'],
 
-    // public function test_post_product_missing_authorisation() {
-    //     $productData = [
-    //         'name' => 1, // wrong datatype - should be string
-    //         'description' => 'test description',
-    //         'slug' => 'test-slug',
-    //         'price' => 100,
-    //         'active' => true
-    //     ];
+        ]);
 
-    //     $headersWithoutAuth = [];
+        $this->assertDatabaseCount('products', 1);
+    }
 
-    //     $this->post('/api/product', $productData, $headersWithoutAuth);
+    public function test_put_product_wrong_data_type() {
+        $productData = [
+            'name' => 1, // wrong datatype - should be string
+            'description' => 'test description',
+            'slug' => 'test-slug',
+            'price' => 100,
+            'active' => true
+        ];
 
-    //     $this->assertDatabaseCount('products', 0);
-    // }
+        $this->put('/api/product/mock-slug', $productData, $this->headers);
 
-    // public function test_post_product_duplicate_slug() {
-    //     $productData1 = [
-    //         'name' => 'test name',
-    //         'description' => 'test description',
-    //         'slug' => 'test-slug',
-    //         'price' => 100,
-    //         'active' => true
-    //     ];
+        // record should not have been updated - should still show initial data
+        $this->assertDatabaseHas('products', [
+            'name' => $this->initialProductData['name'],
+            'description' => $this->initialProductData['description'],
+            'slug' => $this->initialProductData['slug'],
+            'price' => $this->initialProductData['price'],
+            'active' => $this->initialProductData['active'],
 
-    //     $productData2 = [
-    //         'name' => 'test name 2',
-    //         'description' => 'test description 2',
-    //         'slug' => 'test-slug',
-    //         'price' => 100,
-    //         'active' => true
-    //     ];
+        ]);
 
-    //     $this->post('/api/product', $productData1, $this->headers);
-    //     $this->post('/api/product', $productData2, $this->headers);
+        $this->assertDatabaseCount('products', 1);
+    }
 
-    //     $this->assertDatabaseCount('products', 1);
-    // }
+    //TODO - wrong slug
+    public function test_put_product_wrong_slug() {
+        $productData = [
+            'name' => 'new name',
+            'description' => 'test description',
+            'slug' => 'test-slug',
+            'price' => 100,
+            'active' => true
+        ];
 
+        $response = $this->put('/api/product/wrong-slug', $productData, $this->headers); //wrong slug
+        
+        // record should not have been updated - should still show initial data
+        $this->assertDatabaseHas('products', [
+            'name' => $this->initialProductData['name'],
+            'description' => $this->initialProductData['description'],
+            'slug' => $this->initialProductData['slug'],
+            'price' => $this->initialProductData['price'],
+            'active' => $this->initialProductData['active'],
 
+        ]);
+
+        $this->assertEquals($response->original['message'], 'Product not found');
+
+        $this->assertDatabaseCount('products', 1);
+    }
+
+    public function test_put_product_missing_authorisation() {
+        $productData = [
+            'name' => 'new name',
+            'description' => 'new description',
+            'slug' => 'new-slug',
+            'price' => 1,
+            'active' => false,
+        ];
+
+        $headersWithoutAuth = [];
+
+        $this->put('/api/product/mock-slug', $productData, $headersWithoutAuth);
+
+        // record should not have been updated - should still show initial data
+        $this->assertDatabaseHas('products', [
+            'name' => $this->initialProductData['name'],
+            'description' => $this->initialProductData['description'],
+            'slug' => $this->initialProductData['slug'],
+            'price' => $this->initialProductData['price'],
+            'active' => $this->initialProductData['active'],
+
+        ]);
+
+        $this->assertDatabaseCount('products', 1);
+    }
 }

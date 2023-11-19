@@ -47,9 +47,9 @@ class APIProductShowTest extends TestCase
 
     }
 
-    public function test_fetch_non_existent_product() {
+    public function test_fetch_product_wrong_slug() {
 
-        $response = $this->get('api/product/this-product-doesnt-exist', $this->headers);
+        $response = $this->get('api/product/this-product-doesnt-exist', $this->headers); //wrong slug
 
         $this->assertEquals('Product not found', $response->original['message']);
         $this->assertEquals(404, $response->status());
