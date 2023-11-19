@@ -13,8 +13,7 @@ class APIProductUpdateTest extends TestCase
     protected $headers;
     protected $initialProductData;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->headers = [
@@ -128,7 +127,6 @@ class APIProductUpdateTest extends TestCase
         $this->assertDatabaseCount('products', 1);
     }
 
-    //TODO - wrong slug
     public function test_put_product_wrong_slug() {
         $productData = [
             'name' => 'new name',

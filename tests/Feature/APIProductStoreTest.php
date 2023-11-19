@@ -100,24 +100,21 @@ class APIProductStoreTest extends TestCase
     }
 
     public function test_post_product_duplicate_slug() {
-        $productData1 = [
-            'name' => 'test name',
-            'description' => 'test description',
-            'slug' => 'test-slug',
-            'price' => 100,
-            'active' => true
-        ];
+        Product::factory()
+            ->mockData()
+            ->hasImages(4)
+            ->hasDiscounts(1)
+            ->create();
 
-        $productData2 = [
+        $productData = [
             'name' => 'test name 2',
             'description' => 'test description 2',
-            'slug' => 'test-slug',
+            'slug' => 'mock-slug',
             'price' => 100,
             'active' => true
         ];
 
-        $this->post('/api/product', $productData1, $this->headers);
-        $this->post('/api/product', $productData2, $this->headers);
+        $this->post('/api/product', $productData, $this->headers);
 
         $this->assertDatabaseCount('products', 1);
     }

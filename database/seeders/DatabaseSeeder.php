@@ -19,5 +19,12 @@ class DatabaseSeeder extends Seeder
             ->hasImages(4)
             ->hasDiscounts(1)
             ->create();
+
+        Product::factory()
+            ->count(1)
+            ->mockNullDescription()
+            ->hasImages(4)
+            ->hasDiscounts(1)
+            ->create();
     }
 }

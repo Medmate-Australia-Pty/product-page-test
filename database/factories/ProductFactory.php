@@ -30,7 +30,7 @@ class ProductFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'name' => 'mock product',
-                'description' => 'mock description',
+                'description' => 'mock product description',
                 'slug' => 'mock-slug',
                 'price' => 100.00,
                 'active' => true
@@ -42,9 +42,21 @@ class ProductFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'name' => 'mock product',
-                'description' => 'mock description',
-                'slug' => 'mock-slug',
+                'name' => 'mock inactive product',
+                'description' => 'mock inactive product description',
+                'slug' => 'mock-inactive-slug',
+                'price' => 100.00,
+                'active' => false
+            ];
+        });
+    }
+
+    public function mockNullDescription()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'null description product',
+                'slug' => 'null-descriptioun-slug',
                 'price' => 100.00,
                 'active' => false
             ];
