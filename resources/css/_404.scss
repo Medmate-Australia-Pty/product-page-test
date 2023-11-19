@@ -1,0 +1,25 @@
+#page-not-found {
+  padding-top: 2rem;
+  text-align: center;
+
+  .tag {
+    color: #{$medmate-orange};
+    margin-bottom: 2rem;
+  }
+
+  .text {
+    text-transform: uppercase;
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: #{$medmate-orange};
+    font-weight: bold;
+
+    &:hover,
+    :active {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+}

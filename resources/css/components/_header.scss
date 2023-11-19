@@ -1,0 +1,14 @@
+#header {
+  .header-content {
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background: #{$medmate-light-grayish-blue};
+  }
+
+  .title {
+    color: #{$medmate-orange};
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

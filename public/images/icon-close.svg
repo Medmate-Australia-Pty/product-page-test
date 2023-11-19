@@ -1,1 +1,22 @@
-<svg width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill="#69707D" fill-rule="evenodd"/></svg>
+import { render } from "./icon-close.svg?vue&type=template&id=86a5d53e"
+const script = {}
+
+import exportComponent from "../../node_modules/vue-loader/dist/exportHelper.js"
+const __exports__ = /*#__PURE__*/exportComponent(script, [['render',render],['__file',"public/images/icon-close.svg"]])
+/* hot reload */
+if (module.hot) {
+  __exports__.__hmrId = "86a5d53e"
+  const api = __VUE_HMR_RUNTIME__
+  module.hot.accept()
+  if (!api.createRecord('86a5d53e', __exports__)) {
+    api.reload('86a5d53e', __exports__)
+  }
+  
+  module.hot.accept("./icon-close.svg?vue&type=template&id=86a5d53e", () => {
+    api.rerender('86a5d53e', render)
+  })
+
+}
+
+
+export default __exports__

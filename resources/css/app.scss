@@ -1,2 +1,15 @@
 @import './reset';
 @import './font';
+
+//global variables for scss
+@import 'global/variables';
+//layout container styles
+@import 'global/layout';
+@import 'global/typography';
+
+//component styles
+@import 'components/header';
+
+//page styles
+@import 'product';
+@import '404';

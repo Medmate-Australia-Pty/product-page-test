@@ -1,0 +1,13 @@
+.container {
+  margin: auto;
+
+  @media (min-width: #{$container-md}) {
+    max-width: 640px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: #{$container-lg}) {
+    max-width: 1024px;
+  }
+}

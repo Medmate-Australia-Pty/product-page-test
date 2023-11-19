@@ -1,0 +1,274 @@
+#single-product {
+  .product-wrapper {
+    display: grid;
+    padding-bottom: 2rem;
+
+    @media (min-width: #{$container-md}) {
+      padding-top: 100px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    @media (min-width: #{$container-lg}) {
+      padding-top: 100px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8rem;
+    }
+  }
+
+  .images-container {
+    .main-image {
+      position: relative;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1.2;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    .mobile-button-prev,
+    .mobile-button-next {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border-radius: 50%;
+      border: none;
+      width: 48px;
+      height: 48px;
+
+      svg {
+        border: none;
+      }
+
+      @media (min-width: $container-md) {
+        display: none;
+      }
+    }
+
+    .mobile-button-prev {
+      left: 1rem;
+    }
+
+    .mobile-button-next {
+      right: 1rem;
+    }
+
+    @media (min-width: #{$container-md}) {
+      .main-image {
+        aspect-ratio: 1 / 1;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+
+  .grid-images {
+    display: none;
+
+    @media (min-width: #{$container-md}) {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+
+      .image-button {
+        position: relative;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 16px;
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+
+        &.active {
+          border: solid 2px #{$medmate-orange};
+
+          .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #{$medmate-white};
+            opacity: 80%;
+          }
+        }
+      }
+    }
+  }
+
+  .product-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    .tag {
+      padding-top: 2rem;
+      color: #{$medmate-orange};
+      text-transform: uppercase;
+    }
+
+    .name {
+      @media (min-width: #{$container-md}) {
+        padding-bottom: 2rem;
+        margin: 0;
+      }
+    }
+
+    .description {
+      color: #{$medmate-dark-grayish-blue};
+
+      @media (min-width: #{$container-md}) {
+        margin: 0;
+        padding-bottom: 1.5rem;
+      }
+    }
+
+    .discount-price-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      @media (min-width: $container-md) {
+        flex-direction: column;
+        margin-bottom: 0;
+        align-items: flex-start;
+      }
+    }
+
+    .discount-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-grow: 1;
+
+      @media (min-width: $container-md) {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .discounted-price {
+      margin: 0;
+    }
+
+    .original-price {
+      color: #{$medmate-dark-grayish-blue};
+      text-decoration: line-through;
+    }
+
+    .discount {
+      display: flex;
+      color: #{$medmate-orange};
+      padding: 0.25rem 0.5rem;
+      background: #{$medmate-pale-orange};
+      border-radius: 8px;
+    }
+
+    .price {
+      @media (min-width: $container-lg) {
+        margin-bottom: 2rem;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    @media (min-width: $container-md) {
+      padding: 0;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+
+    .button-count {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 0;
+      background: #{$medmate-light-grayish-blue};
+      padding: 1rem 1rem;
+      border-radius: 8px;
+      width: 100%;
+
+      button {
+        border: 0;
+        background: none;
+      }
+
+      @media (min-width: $container-md) {
+        width: 40%;
+        max-width: 40%;
+      }
+    }
+
+    .product-count {
+      color: #{$medmate-black};
+      font-weight: bold;
+    }
+
+    .button-minus,
+    .button-plus {
+      display: flex;
+      cursor: pointer;
+    }
+
+    .button-add-to-cart {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      background: #{$medmate-orange};
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      gap: 0.75rem;
+      padding: 1rem 1rem;
+      cursor: pointer;
+
+      svg {
+        path {
+          fill: white;
+        }
+      }
+
+      &:hover,
+      &:active {
+        border: solid 2px #{$medmate-orange};
+        padding: calc(1rem - 2px) calc(1rem - 2px);
+        background: transparent;
+        color: #{$medmate-orange};
+
+        svg {
+          path {
+            fill: #{$medmate-orange};
+          }
+        }
+      }
+    }
+
+    @media (min-width: $container-md) {
+      flex-direction: row;
+    }
+  }
+}
