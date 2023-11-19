@@ -4,19 +4,26 @@ namespace Tests\Feature;
 
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class apiTest extends TestCase
+class APIProductShowTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $headers;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->headers = [
+            'Authorisation' => config('app.api_key')
+        ];
+    }
 
     // TODO - test POST route
     // TODO - test PUT route
     // TODO - test DELETE route
 
-    // TODO - figure out how to make the controller call a mocked db to remove tests' dependency on db
-    
     public function test_fetch_product_successful()
     {
         Product::factory()
@@ -25,9 +32,7 @@ class apiTest extends TestCase
             ->hasDiscounts(1)
             ->create();
 
-        $response = $this->get('api/products/mock-slug',
-            ["Authorisation" => config('app.api_key')]
-        );
+        $response = $this->get('api/product/mock-slug', $this->headers);
 
         $dataAsArray = $response->original;
 
@@ -44,9 +49,7 @@ class apiTest extends TestCase
 
     public function test_fetch_non_existent_product() {
 
-        $response = $this->get('api/products/this-product-doesnt-exist',
-            ['Authorisation' => config('app.api_key')]
-        );
+        $response = $this->get('api/product/this-product-doesnt-exist', $this->headers);
 
         $this->assertEquals('Product not found', $response->original['message']);
         $this->assertEquals(404, $response->status());
@@ -60,9 +63,7 @@ class apiTest extends TestCase
             ->hasDiscounts(1)
             ->create();
 
-        $response = $this->get('api/products/this-product-doesnt-exist',
-            ['Authorisation' => config('app.api_key')]
-        );
+        $response = $this->get('api/product/this-product-doesnt-exist', $this->headers);
 
         $this->assertEquals('Product not found', $response->original['message']);
         $this->assertEquals(404, $response->status());
@@ -76,7 +77,7 @@ class apiTest extends TestCase
             ->hasDiscounts(1)
             ->create();
 
-        $response = $this->get('api/products/mock-slug');
+        $response = $this->get('api/product/mock-slug');
 
         $this->assertEquals('Authentication error', $response->original['error']);
         $this->assertEquals(403, $response->status());

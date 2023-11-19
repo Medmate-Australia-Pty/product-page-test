@@ -108,7 +108,4 @@ class ProductsController extends Controller
             ], 404);
         }
     }
-
-    // TODO - create full crud
-
 }
