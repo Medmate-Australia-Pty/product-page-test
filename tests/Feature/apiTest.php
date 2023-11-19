@@ -8,11 +8,13 @@ use Tests\TestCase;
 
 class apiTest extends TestCase
 {
+    // TODO - reinstate below line to refresh db once factory is implemented
+    // use RefreshDatabase;
     
     public function test_fetch_product_successful()
     {
         // TODO - mock db to remove this dependency from test cases
-        $response = $this->get('api/products/ea-non-fuga',
+        $response = $this->get('api/products/quis-ab-provident',
             ["Authorisation" => config('app.api_key')]
         );
 
@@ -41,9 +43,11 @@ class apiTest extends TestCase
 
     public function test_fetch_product_without_API_key() {
         //TODO - mock 403 Error response from database
-        $response = $this->get('api/products/ea-non-fuga');
+        $response = $this->get('api/products/quis-ab-provident');
 
         $this->assertEquals('Authentication error', $response->original['error']);
         $this->assertEquals(403, $response->status());
     }
+
+    // TODO - write test for fetching inactive product
 }
