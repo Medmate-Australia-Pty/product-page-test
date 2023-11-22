@@ -3,17 +3,18 @@
     <transition-group name="fade" tag="div">
         <div v-for="i in [currentIndex]" :key="i">
             <div class="position-relative">
-                <img class="img-responsive" :src="currentImg" />
+                <img class="" :src="currentImg" />
                 <div class="position-absolute top-50 translate-middle-y d-flex justify-content-between w-100">
+                    <!-- TODO - center icon in buttons and move them in from the edge-->
                     <div>
-                        <a @click="prev">
+                        <button type="button" class="btn btn-circle btn-light" @click="prev">
                             <img :src="prevIcon">
-                        </a>
+                        </button>
                     </div>
                     <div>
-                        <a @click="next">
+                        <button type="button" class="btn btn-circle btn-light" @click="next">
                             <img :src="nextIcon">
-                        </a>
+                        </button>
                     </div>
                     
                 </div>
@@ -77,5 +78,11 @@ export default {
   width: 100%;
   height: auto;
 }
+
+.btn-circle { 
+        width: 40px; 
+        height: 40px; 
+        border-radius: 20px; 
+    } 
 
 </style>
