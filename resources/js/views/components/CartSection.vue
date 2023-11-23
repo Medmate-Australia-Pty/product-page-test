@@ -1,21 +1,21 @@
 <template>
     <div class="d-flex align-items-center">
         <div>
-            <p class="product-price m-0">{{ data.price }}</p>
+            <p class="product-price m-0">{{ $store.state.product.price }}</p>
         </div>
         <div class="card border-0 bg-pale-orange ms-3" style="max-width: 18rem;">
-            <p class="orange-bold-text mx-2 my-1">{{ data.discount }}</p>
+            <p class="orange-bold-text mx-2 my-1">{{ $store.state.product.discount }}</p>
         </div>
         <div class="full-price-text ms-auto">
-            <p class="text-decoration-line-through">{{ data.fullPrice }}</p>
+            <p class="text-decoration-line-through">{{ $store.state.product.fullPrice }}</p>
         </div>
     </div>
     <div class="d-flex align-items-center quantity-area justify-content-between px-3 my-3">
-        <a type="button" @click="decrementQuantity" :class="loading?'disabled':''">
+        <a type="button" @click="$store.commit('decrementQuantity')">
             <img :src="minusIcon">
         </a>
-        <input type="number" v-model.number="quantity" disabled class="product-quantity-input form-control">
-        <a type="button" @click="incrementQuantity" :class="loading?'disabled':''">
+        <input type="number" v-model="$store.state.quantity" class="product-quantity-input form-control">
+        <a type="button" @click="$store.commit('incrementQuantity')">
             <!-- TODO - vertically center the plus/minus buttons -->
             <img :src="plusIcon">
         </a>
@@ -47,60 +47,15 @@ export default {
             plusIcon,
             minusIcon,
             cartIcon,
-            data: {
-                fullPrice: "$250.00",
-                price: "$125.00",
-                discount: "50%",
-            },
-            quantity: 0,
-            loading: false,
         }
     },
 
     mounted() {
-        this.quantity = this.product.quantity
-
-        let storeCart = this.$store.state.cart
-        let existingStoreItem = storeCart.find(o => o.id ===  this.product.id);
-        if(existingStoreItem) {
-            this.item = existingStoreItem
-        }
-        else {
-            this.item = this.product
-        }
+        
     },
 
     methods: {
-        async incrementQuantity() {
-            console.log('increment')
-            // this.loading = true
-
-            this.quantity ++
-            console.log(this.quantity)
-            // this.product.quantity = this.quantity
-            // await this.$store.commit('updateCart', { product: this.product })
-
-            // this.loading = false
-        },
-
-        async decrementQuantity() {
-            console.log('decrement')
-            // this.loading = true
-
-            if(this.quantity > 1) {
-                this.quantity --
-            //     this.product.quantity = this.quantity
-            //     await this.$store.commit('updateCart', { product: this.product })
-            }
-
-            // this.loading = false
-        },
-
-        async addToCart(){
-            this.item.quantity = 1
-            this.$store.commit('addToStoreCart', this.item)
-            toast('Added items to cart', { autoClose: 1500 });
-        }
+        
     },
 
     computed: {

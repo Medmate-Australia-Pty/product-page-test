@@ -1,8 +1,8 @@
 <template>
     <div>
-        <p class="orange-bold-text">SNEAKER COMPANY</p>
-        <p class="product-title">Fall Limited Edition Sneakers</p>
-        <p class="product-description">These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.</p>
+        <p class="orange-bold-text">{{ companyName }}</p>
+        <p class="product-title">{{ $store.state.product.name }}</p>
+        <p class="product-description">{{ $store.state.product.description }}</p>
     </div>
 </template>
     
@@ -15,6 +15,9 @@ export default {
     },
     
     data() {
+        return {
+            companyName: 'SNEAKER COMPANY',
+        }
     },
 
     mounted: function() {

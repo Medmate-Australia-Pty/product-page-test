@@ -13,7 +13,7 @@ import CartSection from './components/CartSection.vue'
 
 export default {
     async mounted() {
-        await this.$store.commit(initialiseStore)
+        // await this.$store.commit(initialiseStore)
     },
 
     components: {
@@ -22,14 +22,18 @@ export default {
         CartSection,
     },
 
+    data() {
+        return {}
+    },
+
     beforeMounted() {
         this.getProduct()
     },
 
     methods: {
         async getProduct() {
-            const response = await fetch('products/fall-limited-edition-sneakers')
-            console.log(response);
+            // const response = await fetch('products/fall-limited-edition-sneakers')
+            // console.log(response);
         }
     }
 }
