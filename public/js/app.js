@@ -22894,6 +22894,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         state.cart.push(productSelection);
       }
       localStorage.setItem('cart', JSON.stringify(state.cart));
+      toast("Added to cart", {
+        autoClose: 1500
+      });
     }
   },
   actions: {

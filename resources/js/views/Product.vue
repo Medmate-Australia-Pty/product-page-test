@@ -1,15 +1,19 @@
 <template>
     <div class="row">
-        <ImageSection class="col-md-6"></ImageSection>
-        <div class="p-4 col-md-6">
+        <div class="col-md-1"></div>
+        <ImageSectionXS class="col d-md-none"></ImageSectionXS>
+        <ImageSectionMD class="col-5 d-none d-md-block"></ImageSectionMD>
+        <div class="p-4 col-md-5">
             <TextSection></TextSection>
             <CartSection></CartSection>
         </div>
+        <div class="col-md-1"></div>
     </div>
 </template>
 
 <script>
-import ImageSection from './components/ImageSection.vue'
+import ImageSectionXS from './components/ImageSectionXS.vue'
+import ImageSectionMD from './components/ImageSectionMD.vue'
 import TextSection from './components/textSection.vue'
 import CartSection from './components/CartSection.vue'
 
@@ -17,7 +21,8 @@ export default {
     name: 'Product',
 
     components: {
-        ImageSection,
+        ImageSectionXS,
+        ImageSectionMD,
         TextSection,
         CartSection,
     },

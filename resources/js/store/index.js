@@ -39,6 +39,10 @@ export default createStore({
             }
 
             localStorage.setItem('cart', JSON.stringify(state.cart));
+
+            toast("Added to cart", {
+                autoClose: 1500,
+            });
         },
     },
 

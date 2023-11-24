@@ -1,20 +1,22 @@
 <template>
     <!-- if discount, display discounted price, discount and full price -->
-    <div class="d-flex align-items-center" v-if="$store.state.product.price?.discounted">
-        <div>
+    <div class="row mb-4" v-if="$store.state.product.price?.discounted">
+        <div class="col-9 col-md-12 d-flex align-items-center mb-1">
             <p class="product-price m-0">
                 ${{ $store.state.product.price?.discounted }}.00
             </p>
+            <div class="">
+                <div class="card border-0 bg-pale-orange ms-3">
+                    <p class="orange-bold-text mx-2 my-1">
+                        {{ $store.state.product.discount?.type == 'percent' ? '' : '$' }}
+                        {{ $store.state.product.discount?.amount }}
+                        {{ $store.state.product.discount?.type == 'percent' ? '%' : '' }}
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="card border-0 bg-pale-orange ms-3" style="max-width: 18rem;">
-            <p class="orange-bold-text mx-2 my-1">
-                {{ $store.state.product.discount?.type == 'percent' ? '' : '$' }}
-                {{ $store.state.product.discount?.amount }}
-                {{ $store.state.product.discount?.type == 'percent' ? '%' : '' }}
-            </p>
-        </div>
-        <div class="full-price-text ms-auto col-md-12">
-            <p class="text-decoration-line-through">
+        <div class="full-price-text col-3 col-md-12 d-flex align-items-center justify-content-end justify-content-md-start">
+            <p class="text-decoration-line-through m-0">
                 {{ $store.state.product.price?.full }}.00
             </p>
         </div>
@@ -27,21 +29,27 @@
             </p>
         </div>
     </div>
-    <div class="d-flex align-items-center quantity-area justify-content-between px-3 my-3">
-        <a type="button" @click="$store.commit('decrementQuantity')">
-            <img :src="minusIcon">
-        </a>
-        <input type="number" v-model="$store.state.quantity" class="product-quantity-input form-control">
-        <a type="button" @click="$store.commit('incrementQuantity')">
-            <!-- TODO - vertically center the plus/minus buttons -->
-            <img :src="plusIcon">
-        </a>
+    <div class="row d-flex align-items-center">
+        <div class="my-3 col-lg-5">
+            <div class="px-4 px-lg-2 d-flex align-items-center quantity-area justify-content-between">
+                <a type="button" @click="$store.commit('decrementQuantity')">
+                    <img :src="minusIcon">
+                </a>
+                <input type="number" disabled v-model="$store.state.quantity" class="product-quantity-input form-control">
+                <a type="button" @click="$store.commit('incrementQuantity')">
+                    <!-- TODO - vertically center the plus/minus buttons -->
+                    <img :src="plusIcon">
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-7" style="height: 50px;">
+            <button class="btn btn-add-to-cart w-100 h-100" type="button" @click="$store.commit('updateCart', {productId: $store.state.product.id, quantity: $store.state.quantity})">
+                <!-- TODO - vertically center the icon -->
+                <img :src="cartIcon" class="cart-icon me-2">
+                Add to cart
+            </button>
+        </div>
     </div>
-    <button type="button" @click="$store.commit('updateCart', {productId: $store.state.product.id, quantity: $store.state.quantity})" class="btn btn-add-to-cart w-100">
-        <!-- TODO - vertically center the icon -->
-        <img :src="cartIcon" class="cart-icon me-2">
-        Add to cart
-    </button>
 </template>
     
 <script>
@@ -72,6 +80,7 @@ export default {
 
 .bg-pale-orange {
     background-color: hsl(25, 100%, 94%);
+    width: fit-content;
 }
 
 .full-price-text {
@@ -110,6 +119,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: hsl(26, 100%, 55%);
     color: white;
     font-weight: 600;
+    border-radius: 10px;
 }
 
 .cart-icon {
