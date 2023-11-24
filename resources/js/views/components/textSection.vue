@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="orange-bold-text">{{ companyName }}</p>
+        <p class="orange-bold-text d-md-none">SNEAKER COMPANY</p>
         <p class="product-title">{{ $store.state.product.name }}</p>
         <p class="product-description">{{ $store.state.product.description }}</p>
     </div>
@@ -16,7 +16,6 @@ export default {
     
     data() {
         return {
-            companyName: 'SNEAKER COMPANY',
         }
     },
 

@@ -1,13 +1,30 @@
 <template>
-    <div class="d-flex align-items-center">
+    <!-- if discount, display discounted price, discount and full price -->
+    <div class="d-flex align-items-center" v-if="$store.state.product.price?.discounted">
         <div>
-            <p class="product-price m-0">{{ $store.state.product.price }}</p>
+            <p class="product-price m-0">
+                ${{ $store.state.product.price?.discounted }}.00
+            </p>
         </div>
         <div class="card border-0 bg-pale-orange ms-3" style="max-width: 18rem;">
-            <p class="orange-bold-text mx-2 my-1">{{ $store.state.product.discount }}</p>
+            <p class="orange-bold-text mx-2 my-1">
+                {{ $store.state.product.discount?.type == 'percent' ? '' : '$' }}
+                {{ $store.state.product.discount?.amount }}
+                {{ $store.state.product.discount?.type == 'percent' ? '%' : '' }}
+            </p>
         </div>
-        <div class="full-price-text ms-auto">
-            <p class="text-decoration-line-through">{{ $store.state.product.fullPrice }}</p>
+        <div class="full-price-text ms-auto col-md-12">
+            <p class="text-decoration-line-through">
+                {{ $store.state.product.price?.full }}.00
+            </p>
+        </div>
+    </div>
+    <!-- if no discount, just display full price -->
+    <div class="d-flex align-items-center" v-else>
+        <div>
+            <p class="product-price m-0">
+                ${{ $store.state.product.price?.full }}.00
+            </p>
         </div>
     </div>
     <div class="d-flex align-items-center quantity-area justify-content-between px-3 my-3">
@@ -20,7 +37,7 @@
             <img :src="plusIcon">
         </a>
     </div>
-    <button type="button" @click="addToCart" class="btn btn-add-to-cart w-100">
+    <button type="button" @click="$store.commit('updateCart', {productId: $store.state.product.id, quantity: $store.state.quantity})" class="btn btn-add-to-cart w-100">
         <!-- TODO - vertically center the icon -->
         <img :src="cartIcon" class="cart-icon me-2">
         Add to cart
@@ -37,11 +54,6 @@ import 'vue3-toastify/dist/index.css';
 export default {
     name: 'CartSection',
 
-    props: ['product'],
-
-    components: {
-    },
-    
     data() {
         return {
             plusIcon,
@@ -49,17 +61,6 @@ export default {
             cartIcon,
         }
     },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
-
-    computed: {
-    }
 }
 </script>
 

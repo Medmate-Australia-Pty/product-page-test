@@ -43,12 +43,6 @@ export default {
         return {
             nextIcon,
             prevIcon,
-            images: [
-                image1,
-                image2,
-                image3,
-                image4
-            ],
             currentIndex: 0
         };
     },
@@ -67,7 +61,12 @@ export default {
 
     computed: {
         currentImg: function() {
-            return this.images[Math.abs(this.currentIndex) % this.images.length];
+            if (this.$store.state.product.images) {
+                return this.$store.state.product.images[Math.abs(this.currentIndex) % this.$store.state.product.images.length];
+            } else {
+                // should use a placeholder image
+                return null
+            }
         }
     }
 }

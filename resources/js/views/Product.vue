@@ -1,8 +1,10 @@
 <template>
-    <ImageSection></ImageSection>
-    <div class="p-4">
-        <TextSection></TextSection>
-        <CartSection></CartSection>
+    <div class="row">
+        <ImageSection class="col-md-6"></ImageSection>
+        <div class="p-4 col-md-6">
+            <TextSection></TextSection>
+            <CartSection></CartSection>
+        </div>
     </div>
 </template>
 
@@ -12,9 +14,7 @@ import TextSection from './components/textSection.vue'
 import CartSection from './components/CartSection.vue'
 
 export default {
-    async mounted() {
-        // await this.$store.commit(initialiseStore)
-    },
+    name: 'Product',
 
     components: {
         ImageSection,
@@ -24,6 +24,15 @@ export default {
 
     data() {
         return {}
+    },
+
+    async mounted() {
+        this.$store.dispatch("fetchProduct")
+        await this.$store.commit('initialiseStore')
+    },
+
+    thisIsntReal() {
+
     },
 
     beforeMounted() {
