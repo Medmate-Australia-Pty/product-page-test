@@ -1,26 +1,20 @@
 <template>
 <div>
-    <transition-group name="fade" tag="div">
-        <div v-for="i in [currentIndex]" :key="i">
-            <div class="position-relative">
-                <img class="cropped" :src="currentImg"/>
-                <div class="position-absolute top-50 translate-middle-y d-flex justify-content-between w-100 px-3">
-                    <!-- TODO - center icon in buttons and move them in from the edge-->
-                    <div>
-                        <button type="button" class="btn btn-circle btn-light d-flex align-items-center justify-content-center" @click="prev">
-                            <img :src="prevIcon">
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-circle btn-light d-flex align-items-center justify-content-center" @click="next">
-                            <img :src="nextIcon">
-                        </button>
-                    </div>
-                    
-                </div>
+    <div class="position-relative">
+        <img class="cropped" :src="currentImg"/>
+        <div class="position-absolute top-50 translate-middle-y d-flex justify-content-between w-100 px-3">
+            <div>
+                <button type="button" class="btn btn-circle btn-light d-flex align-items-center justify-content-center" @click="prev">
+                    <img :src="prevIcon">
+                </button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-circle btn-light d-flex align-items-center justify-content-center" @click="next">
+                    <img :src="nextIcon">
+                </button>
             </div>
         </div>
-    </transition-group>
+    </div>
 </div>
 </template>
 

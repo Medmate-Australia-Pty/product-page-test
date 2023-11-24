@@ -8,9 +8,7 @@
             <div class="">
                 <div class="card border-0 bg-pale-orange ms-3">
                     <p class="orange-bold-text mx-2 my-1">
-                        {{ $store.state.product.discount?.type == 'percent' ? '' : '$' }}
-                        {{ $store.state.product.discount?.amount }}
-                        {{ $store.state.product.discount?.type == 'percent' ? '%' : '' }}
+                        {{ $store.state.product.discount?.type == 'percent' ? '' : '$' }}{{ $store.state.product.discount?.amount }}{{ $store.state.product.discount?.type == 'percent' ? '%' : '' }}
                     </p>
                 </div>
             </div>
@@ -37,14 +35,12 @@
                 </a>
                 <input type="number" disabled v-model="$store.state.quantity" class="product-quantity-input form-control">
                 <a type="button" @click="$store.commit('incrementQuantity')">
-                    <!-- TODO - vertically center the plus/minus buttons -->
                     <img :src="plusIcon">
                 </a>
             </div>
         </div>
         <div class="col-lg-7" style="height: 50px;">
             <button class="btn btn-add-to-cart w-100 h-100" type="button" @click="$store.commit('updateCart', {productId: $store.state.product.id, quantity: $store.state.quantity})">
-                <!-- TODO - vertically center the icon -->
                 <img :src="cartIcon" class="cart-icon me-2">
                 Add to cart
             </button>
@@ -56,7 +52,6 @@
 import plusIcon from '../../../../public/images/icon-plus.svg'
 import minusIcon from '../../../../public/images/icon-minus.svg'
 import cartIcon from '../../../../public/images/icon-cart.svg'
-import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default {
@@ -81,6 +76,12 @@ export default {
 .bg-pale-orange {
     background-color: hsl(25, 100%, 94%);
     width: fit-content;
+}
+
+.orange-bold-text {
+    color: hsl(26, 100%, 55%);
+    font-size: 14px;
+    font-weight: 600
 }
 
 .full-price-text {

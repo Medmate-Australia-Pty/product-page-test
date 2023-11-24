@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
+import { toast } from 'vue3-toastify';
 
 export default createStore({
     state: {
@@ -40,9 +41,7 @@ export default createStore({
 
             localStorage.setItem('cart', JSON.stringify(state.cart));
 
-            toast("Added to cart", {
-                autoClose: 1500,
-            });
+            toast.success("Added to cart")
         },
     },
 
@@ -58,12 +57,6 @@ export default createStore({
             });
         }
         
-    },
-
-    getters: {
-        price(state) {
-            return state.product.price
-        }
     },
     
     modules: {},

@@ -1,13 +1,16 @@
 <template>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <ImageSectionXS class="col d-md-none"></ImageSectionXS>
-        <ImageSectionMD class="col-5 d-none d-md-block"></ImageSectionMD>
-        <div class="p-4 col-md-5">
-            <TextSection></TextSection>
-            <CartSection></CartSection>
+    <div>
+        <div class="row d-none d-md-block" style="height: 10vw;"></div>
+        <div class="row">
+            <div class="d-none d-md-block col-md-1"></div>
+            <ImageSectionXS class="col d-md-none"></ImageSectionXS>
+            <ImageSectionMD class="col-5 d-none d-md-block p-0 pe-md-4"></ImageSectionMD>
+            <div class="p-4 p-md-0 ps-md-4 col-md-5">
+                <TextSection></TextSection>
+                <CartSection></CartSection>
+            </div>
+            <div class="d-none d-md-block col-md-1"></div>
         </div>
-        <div class="col-md-1"></div>
     </div>
 </template>
 

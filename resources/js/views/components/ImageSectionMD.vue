@@ -1,33 +1,19 @@
 <template>
 <div>
-    <transition-group name="fade" tag="div">
-        <div v-for="i in [currentIndex]" :key="i">
-            <div class="position-relative">
-                <img class="cropped" :src="currentImg"/>
-                <div class="position-absolute top-50 translate-middle-y d-flex justify-content-between w-100 px-3">
-                    <!-- TODO - center icon in buttons and move them in from the edge-->
-                    <div>
-                        <button type="button" class="btn btn-circle btn-light d-flex align-items-center justify-content-center" @click="prev">
-                            <img :src="prevIcon">
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-circle btn-light d-flex align-items-center justify-content-center" @click="next">
-                            <img :src="nextIcon">
-                        </button>
-                    </div>
-                    
-                </div>
-            </div>
+    <img class="cropped mb-4" :src="currentImg"/>
+    <div class="row">
+        <div v-for="(image, index) in this.$store.state.product.images" class="col d-flex justify-content-center" key="index">
+            <a class="image-anchor" :class="{'selected-image-anchor': currentIndex == index}" @click="selectImage(index)">
+                <img class="image" :class="{'selected-image': currentIndex == index}" :src="image"/>
+            </a>
         </div>
-    </transition-group>
+    </div>
 </div>
 </template>
 
 <script>
 import nextIcon from '../../../../public/images/icon-next.svg'
 import prevIcon from '../../../../public/images/icon-previous.svg'
-
 
 export default {
     name: 'ImageSectionMD',
@@ -37,9 +23,13 @@ export default {
     
     data() {
         return {
-            nextIcon,
-            prevIcon,
-            currentIndex: 0
+            currentIndex: 0,
+            images: [
+                {isactive: false},
+                {isactive: true},
+                {isactive: false},
+                {isactive: false},
+            ]
         };
     },
 
@@ -47,12 +37,9 @@ export default {
     },
 
     methods: {
-        next: function() {
-            this.currentIndex += 1;
+        selectImage(selection) {
+            this.currentIndex = selection;
         },
-        prev: function() {
-            this.currentIndex -= 1;
-        }
     },
 
     computed: {
@@ -60,7 +47,7 @@ export default {
             if (this.$store.state.product.images) {
                 return this.$store.state.product.images[Math.abs(this.currentIndex) % this.$store.state.product.images.length];
             } else {
-                // should use a placeholder image
+                // TODO - should use a placeholder image
                 return null
             }
         }
@@ -82,8 +69,30 @@ export default {
 
 .cropped {
     object-fit: cover;
-    height: 80vw;
+    height: auto;
     width: 100%;
+    border-radius: 10px;
+}
+
+.image {
+    object-fit: cover;
+    height: auto;
+    width: 60px;
+    border-radius: 5px;
+}
+
+.selected-image {
+    opacity: 0.2;
+}
+
+.image-anchor {
+    cursor: pointer;
+    border: 0px;
+    border-radius: 7px;
+}
+
+.selected-image-anchor {
+    border: 2px solid hsl(26, 100%, 55%);
 }
 
 </style>
