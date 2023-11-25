@@ -22814,12 +22814,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHashHistory)(),
-  routes: [
-  // {
-  //   path: '/',
-  //   redirect: () => ({ name: 'product', params: { slug: 'fall-limited-edition-sneakers' } })
-  // },
-  {
+  routes: [{
     path: '/shop/product/:slug',
     name: 'product',
     component: function component() {
