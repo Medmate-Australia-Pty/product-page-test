@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- TODO - remove the little margin on the side that makes it horizontally scrollable -->
         <div class="row d-none d-md-block" style="height: 10vw;"></div>
         <div class="row">
             <div class="d-none d-md-block col-md-1"></div>
@@ -18,7 +17,7 @@
 <script>
 import ImageSectionXS from './components/ImageSectionXS.vue'
 import ImageSectionMD from './components/ImageSectionMD.vue'
-import TextSection from './components/textSection.vue'
+import TextSection from './components/TextSection.vue'
 import CartSection from './components/CartSection.vue'
 import store from './../store/index'
 

@@ -19,8 +19,6 @@ class CreateProductDiscountsTable extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->enum('type', ['percent', 'amount']);
             $table->decimal('discount', $precision = 8, $scale = 2);
-            //TODO - add bool column to track whether active
-            //TODO - add date column to track deactivation timestamp to allow future analysis
             $table->timestamps();
         });
     }

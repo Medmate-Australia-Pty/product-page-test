@@ -47,7 +47,7 @@ export default {
             if (this.$store.state.product.images) {
                 return this.$store.state.product.images[Math.abs(this.currentIndex) % this.$store.state.product.images.length];
             } else {
-                // TODO - should use a placeholder image
+                // should use a placeholder image
                 return null
             }
         }
