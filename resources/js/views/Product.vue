@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- TODO - remove the little margin on the side that makes it horizontally scrollable -->
         <div class="row d-none d-md-block" style="height: 10vw;"></div>
         <div class="row">
             <div class="d-none d-md-block col-md-1"></div>
@@ -19,6 +20,7 @@ import ImageSectionXS from './components/ImageSectionXS.vue'
 import ImageSectionMD from './components/ImageSectionMD.vue'
 import TextSection from './components/textSection.vue'
 import CartSection from './components/CartSection.vue'
+import store from './../store/index'
 
 export default {
     name: 'Product',
@@ -35,23 +37,12 @@ export default {
     },
 
     async mounted() {
-        this.$store.dispatch("fetchProduct")
         await this.$store.commit('initialiseStore')
+        this.$store.dispatch("fetchProduct")
     },
 
-    thisIsntReal() {
-
+    beforeRouteUpdate(to, from, next) {
+        location.reload()
     },
-
-    beforeMounted() {
-        this.getProduct()
-    },
-
-    methods: {
-        async getProduct() {
-            // const response = await fetch('products/fall-limited-edition-sneakers')
-            // console.log(response);
-        }
-    }
 }
 </script>

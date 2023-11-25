@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import { toast } from 'vue3-toastify';
+import router from '../router';
 
 export default createStore({
     state: {
@@ -32,7 +33,6 @@ export default createStore({
 
         updateCart(state, productSelection) {
             let itemAlreadyInCart = state.cart.findIndex(el => el.productId == productSelection.productId)
-            console.log(itemAlreadyInCart)
             if (itemAlreadyInCart >= 0) {
                 state.cart[itemAlreadyInCart].quantity += productSelection.quantity
             } else {
@@ -46,14 +46,15 @@ export default createStore({
     },
 
     actions: {
-        fetchProduct({ commit }) {
-            const baseURL = "http://localhost:8000/";
-            axios.get(baseURL + 'client/products/fall-limited-edition-sneakers')
+        fetchProduct({ commit, state }) {
+            const baseURL = "http://localhost:8000/client/products/"
+            axios.get(baseURL + router.currentRoute._value.params.slug)
             .then(res => {
-                commit("setProductData", res.data.data);
+                commit("setProductData", res.data.data)
             })
             .catch(e => {
-                console.log(e); 
+                console.log(e)
+                window.location.replace('http://localhost:8000/#/shop/product/product-not-found')
             });
         }
         
