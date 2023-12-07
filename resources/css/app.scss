@@ -44,6 +44,7 @@
     align-items: center;
     justify-content: center;
     grid-gap: 10px;
+    box-shadow: 1px 23px 18px $SECONDARY_COLOR;
   }
 }
 .thumbnail-image.selected {
@@ -115,8 +116,11 @@
       font-size: 30px;
     }
     p {
+      background: $SECONDARY_COLOR;
+      padding: 0 6px;
       color: $PRIMARY_COLOR;
       font-weight: 700;
+      border-radius: 5px;
     }
     small {
       color: $TERTIARY_COLOR;

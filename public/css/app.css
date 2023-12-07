@@ -190,6 +190,7 @@ p {
   align-items: center;
   justify-content: center;
   grid-gap: 10px;
+  box-shadow: 1px 23px 18px hsl(25, 100%, 94%);
 }
 
 .thumbnail-image.selected {
@@ -253,8 +254,11 @@ p {
   font-size: 30px;
 }
 .description .price p {
+  background: hsl(25, 100%, 94%);
+  padding: 0 6px;
   color: hsl(26, 100%, 55%);
   font-weight: 700;
+  border-radius: 5px;
 }
 .description .price small {
   color: #87888b;
