@@ -109,15 +109,22 @@ export default {
   }
 }
 
-@media screen and (min-width: 1440px) {
-  .main-image img {
-    border-radius: 20px;
-  }
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
   .arrow-buttons {
     display: none;
   }
   .thumbnail-container {
     display: flex;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .main-image img {
+    border-radius: 20px;
   }
 }
 </style>

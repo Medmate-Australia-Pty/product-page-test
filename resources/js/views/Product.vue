@@ -1,5 +1,5 @@
 <template>
-  <section id="carousel">
+  <section id="product">
     <div class="container">
       <div class="row">
         <div class="col-md-5">
@@ -15,7 +15,22 @@
               <h3>${{ productData.price?.discounted }}</h3>
               <p>{{ productData.discount?.amount }}%</p>
             </div>
-            <small>${{ productData.price?.full }}</small>
+            <small class="full-price">${{ productData.price?.full }}</small>
+          </div>
+
+          <div class="add-cart-wrapper">
+            <div class="quantity">
+              <button @click="decrementQuantity">
+                <img src="@/icon-minus.svg"/>
+              </button>
+              <span>{{ quantity }}</span>
+              <button @click="incrementQuantity">
+                <img src="@/icon-plus.svg"/>
+              </button>
+            </div>
+            <button class="btn-add">
+              <img src="@/icon-cart.svg"/> Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -33,7 +48,18 @@ export default {
   data() {
     return {
       productData: '',
+      quantity: 0, 
     };
+  },
+  methods: {
+    decrementQuantity() {
+      if (this.quantity > 0) {
+        this.quantity--;
+      }
+    },
+    incrementQuantity() {
+      this.quantity++;
+    },
   },
   mounted() {
     // Make a GET request to the specified endpoint using fetch
@@ -53,23 +79,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.description {
-  padding: 30px 50px;
-
-  .price {
-    div {
-      display: flex;
-      grid-gap: 20px;
-      align-items: center;
-    }
-    h3 {
-      font-size: 30px;
-    }
-    p {
-      font-weight: 700;
-    }
-  }
-}
-</style>

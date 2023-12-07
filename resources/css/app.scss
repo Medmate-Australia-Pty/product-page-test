@@ -3,7 +3,27 @@
 @import './grid';
 @import './font';
 
-
+.add-cart-wrapper {
+  .quantity {
+    border-radius: 5px;
+    background: #f7f8fe;
+  }
+  .btn-add {
+    background: $PRIMARY_COLOR;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 700;
+    height: 50px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+  }
+}
 .thumbnail-image.selected {
   outline: 2px solid $PRIMARY_COLOR;
   img {
@@ -17,21 +37,65 @@
   }
 }
 
-
 .description {
+
   h2 {
-    font-size: 45px;
+    font-size: 35px;
   }
   p {
     color: $TERTIARY_COLOR;
     line-height: $LINE_HEIGHT;
   }
+
+  .add-cart-wrapper {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+    min-width: 180px;
+    min-height: 50px;
+
+    > * {
+      flex-grow: 1;
+    }
+
+    button {
+      background: transparent;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    span {
+      min-width: 50px;
+      padding: 0 10px;
+      font-size: 18px;
+      text-align: center;
+    }
+  }
   .price {
     h3, p {
       margin: 0;
     }
+    div {
+      display: flex;
+      grid-gap: 20px;
+      align-items: center;
+    }
+    h3 {
+      font-size: 30px;
+    }
     p {
       color: $PRIMARY_COLOR;
+      font-weight: 700;
     }
     small {
       color: $TERTIARY_COLOR;
@@ -40,4 +104,55 @@
   }
 }
 
+@media (min-width: 375px) {
+  .description {
+    padding: 20px;
+    > * {
+      margin: 22px 0;
+    }
+  }
+  .price {
+    display: flex;
+    align-items: center;
+    > * {
+      flex-grow: 1;
+    }
+    .full-price {
+      text-align: right;
+    }
+  }
+  .add-cart-wrapper {
+    flex-wrap: wrap;
+    .quantity {
+      width: 100%;
+    }
+  }
+}
 
+@media (min-width: 992px) {
+  #app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    min-height: 670px;
+  }
+
+  .description {
+    padding: 30px 100px;
+    > * {
+      margin: 42px 0;
+    }
+  }
+
+  .price {
+    display: block;
+
+  }
+
+  .add-cart-wrapper {
+    .quantity {
+      width: auto;
+    }
+  }
+}
