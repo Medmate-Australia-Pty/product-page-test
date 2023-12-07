@@ -11,6 +11,11 @@ const router = createRouter({
       path: '/shop/product/:slug',
       name: 'product',
       component: () => import('./views/Product.vue')
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: () => import('./views/404.vue')
     }
   ],
 })
