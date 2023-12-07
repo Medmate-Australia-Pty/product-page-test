@@ -12,7 +12,7 @@
 
           <div class="price">
             <div>
-              <h3>${{ productData.price?.discounted }}</h3>
+              <h3>${{ productData.price?.discounted.toFixed(2) }}</h3>
               <p>{{ productData.discount?.amount }}%</p>
             </div>
             <small class="full-price">${{ productData.price?.full }}</small>
