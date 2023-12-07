@@ -15,7 +15,7 @@
               <h3>${{ productData.price?.discounted.toFixed(2) }}</h3>
               <p>{{ productData.discount?.amount }}%</p>
             </div>
-            <small class="full-price">${{ productData.price?.full }}</small>
+            <small class="full-price">${{ productData.price?.full.toFixed(2) }}</small>
           </div>
 
           <div class="add-cart-wrapper">
