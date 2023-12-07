@@ -28,7 +28,7 @@
                 <img src="@/icon-plus.svg"/>
               </button>
             </div>
-            <button class="btn-add">
+            <button class="btn-add btn-primary">
               <img src="@/icon-cart.svg"/> Add to cart
             </button>
           </div>
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       productData: '',
-      quantity: 0, 
+      quantity: 0,
     };
   },
   methods: {
@@ -62,20 +62,20 @@ export default {
     },
   },
   mounted() {
+    const requestedSlug = this.$route.params.slug;
+    if(requestedSlug !== 'fall-limited-edition-sneakers') {
+      this.$router.push({ name: '404' })
+    }
     // Make a GET request to the specified endpoint using fetch
     fetch('http://localhost:8000/client/products/fall-limited-edition-sneakers')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         this.productData = data.data;
       })
       .catch(error => {
-        console.error('Error fetching product data:', error);
+        console.log("Error:", error.message);
       });
+
   },
 };
 </script>

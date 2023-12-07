@@ -117,14 +117,15 @@ export default {
   .arrow-buttons {
     display: none;
   }
+  .main-image img {
+    border-radius: 20px;
+  }
   .thumbnail-container {
     display: flex;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .main-image img {
-    border-radius: 20px;
-  }
+
 }
 </style>

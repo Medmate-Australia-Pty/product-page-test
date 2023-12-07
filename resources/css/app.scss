@@ -3,20 +3,42 @@
 @import './grid';
 @import './font';
 
+#not-found {
+  text-align: center;
+  padding: 50px 30px;
+  h1 {
+    font-size: 70px;
+    margin: 0;
+  }
+  p {
+    color: $TERTIARY_COLOR;
+  }
+  .row {
+    align-items: center;
+    justify-content: center;
+    > div {
+      padding: 20px 50px;
+    }
+  }
+}
+
+.btn-primary {
+  background: $PRIMARY_COLOR;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  height: 50px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .add-cart-wrapper {
   .quantity {
     border-radius: 5px;
     background: #f7f8fe;
   }
   .btn-add {
-    background: $PRIMARY_COLOR;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: 700;
-    height: 50px;
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -38,7 +60,6 @@
 }
 
 .description {
-
   h2 {
     font-size: 35px;
   }
@@ -100,6 +121,7 @@
     small {
       color: $TERTIARY_COLOR;
       text-decoration: line-through;
+      font-size: $TEXT_SIZE;
     }
   }
 }

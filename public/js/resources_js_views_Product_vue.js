@@ -72,16 +72,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
+    var requestedSlug = this.$route.params.slug;
+    if (requestedSlug !== 'fall-limited-edition-sneakers') {
+      this.$router.push({
+        name: '404'
+      });
+    }
     // Make a GET request to the specified endpoint using fetch
     fetch('http://localhost:8000/client/products/fall-limited-edition-sneakers').then(function (response) {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
       return response.json();
     }).then(function (data) {
       _this.productData = data.data;
     })["catch"](function (error) {
-      console.error('Error fetching product data:', error);
+      console.log("Error:", error.message);
     });
   }
 });
@@ -214,7 +217,7 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, null, -1 /* HOISTED */);
 var _hoisted_13 = [_hoisted_12];
 var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "btn-add"
+  "class": "btn-add btn-primary"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Add to cart ")], -1 /* HOISTED */);
@@ -251,7 +254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main-image[data-v-fe98726a] {\n  position: relative;\n}\n.main-image img[data-v-fe98726a] {\n  height: auto;\n}\n.thumbnail-container[data-v-fe98726a] {\n  justify-content: center;\n  padding: 20px 0;\n  grid-gap: 20px;\n}\n.thumbnail-image[data-v-fe98726a] {\n  border-radius: 8px;\n  overflow: hidden;\n  width: 100px;\n  height: 100px;\n  cursor: pointer;\n}\n.arrow-buttons[data-v-fe98726a] {\n  display: flex;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  left: 0;\n  width: 100%;\n  transform: translate(0, -50%);\n  padding: 0 20px;\n}\n.arrow-buttons button[data-v-fe98726a] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  cursor: pointer;\n}\n@media (min-width: 375px) {\n.thumbnail-container[data-v-fe98726a] {\n    display: none;\n}\n}\n@media (min-width: 992px) {\n.arrow-buttons[data-v-fe98726a] {\n    display: none;\n}\n.thumbnail-container[data-v-fe98726a] {\n    display: flex;\n}\n}\n@media screen and (min-width: 1440px) {\n.main-image img[data-v-fe98726a] {\n    border-radius: 20px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main-image[data-v-fe98726a] {\n  position: relative;\n}\n.main-image img[data-v-fe98726a] {\n  height: auto;\n}\n.thumbnail-container[data-v-fe98726a] {\n  justify-content: center;\n  padding: 20px 0;\n  grid-gap: 20px;\n}\n.thumbnail-image[data-v-fe98726a] {\n  border-radius: 8px;\n  overflow: hidden;\n  width: 100px;\n  height: 100px;\n  cursor: pointer;\n}\n.arrow-buttons[data-v-fe98726a] {\n  display: flex;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  left: 0;\n  width: 100%;\n  transform: translate(0, -50%);\n  padding: 0 20px;\n}\n.arrow-buttons button[data-v-fe98726a] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  cursor: pointer;\n}\n@media (min-width: 375px) {\n.thumbnail-container[data-v-fe98726a] {\n    display: none;\n}\n}\n@media (min-width: 992px) {\n.arrow-buttons[data-v-fe98726a] {\n    display: none;\n}\n.main-image img[data-v-fe98726a] {\n    border-radius: 20px;\n}\n.thumbnail-container[data-v-fe98726a] {\n    display: flex;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
