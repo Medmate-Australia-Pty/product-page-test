@@ -1,2 +1,43 @@
 @import './reset';
+@import './variables';
+@import './grid';
 @import './font';
+
+
+.thumbnail-image.selected {
+  outline: 2px solid $PRIMARY_COLOR;
+  img {
+    opacity: .2;
+  }
+}
+.arrow-buttons {
+  button {
+    border: none;
+    background: #fff;
+  }
+}
+
+
+.description {
+  h2 {
+    font-size: 45px;
+  }
+  p {
+    color: $TERTIARY_COLOR;
+    line-height: $LINE_HEIGHT;
+  }
+  .price {
+    h3, p {
+      margin: 0;
+    }
+    p {
+      color: $PRIMARY_COLOR;
+    }
+    small {
+      color: $TERTIARY_COLOR;
+      text-decoration: line-through;
+    }
+  }
+}
+
+

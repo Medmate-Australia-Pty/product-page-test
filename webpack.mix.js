@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,3 +15,8 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     .sass('resources/css/app.scss', 'public/css');
+
+
+mix.alias({
+    '@': path.join(__dirname, 'public/images')
+});
