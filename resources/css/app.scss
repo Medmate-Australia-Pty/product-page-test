@@ -1,2 +1,6 @@
-@import './reset';
-@import './font';
+@import "./reset";
+@import "./font";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

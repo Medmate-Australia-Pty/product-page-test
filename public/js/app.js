@@ -19795,20 +19795,25 @@ __webpack_require__.r(__webpack_exports__);
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHashHistory)(),
   routes: [{
-    path: '/',
+    path: "/",
     redirect: function redirect() {
       return {
-        name: 'product',
+        name: "product",
         params: {
-          slug: 'fall-limited-edition-sneakers'
+          slug: "fall-limited-edition-sneakers"
         }
       };
     }
   }, {
-    path: '/shop/product/:slug',
-    name: 'product',
+    path: "/shop/product/:slug",
+    name: "product",
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_Product_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Product.vue */ "./resources/js/views/Product.vue"));
+    }
+  }, {
+    path: "/:pathMatch(.*)*",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_NotFound_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/NotFound.vue */ "./resources/js/views/NotFound.vue"));
     }
   }]
 });
@@ -37501,7 +37506,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/devtools-api */ "./node_modules/@vue/devtools-api/lib/esm/index.js");
 /*!
-  * vue-router v4.2.4
+  * vue-router v4.2.5
   * (c) 2023 Eduardo San Martin Morote
   * @license MIT
   */
@@ -37914,7 +37919,6 @@ function useHistoryListeners(base, historyState, currentLocation, replace) {
         else {
             replace(to);
         }
-        // console.log({ deltaFromCurrent })
         // Here we could also revert the navigation by calling history.go(-delta)
         // this listener will have to be adapted to not trigger again and to wait for the url
         // to be updated before triggering the listeners. Some kind of validation function would also
@@ -38118,15 +38122,11 @@ function createMemoryHistory(base = '') {
     base = normalizeBase(base);
     function setLocation(location) {
         position++;
-        if (position === queue.length) {
-            // we are at the end, we can simply append a new entry
-            queue.push(location);
-        }
-        else {
+        if (position !== queue.length) {
             // we are in the middle, we remove everything from here in the queue
             queue.splice(position);
-            queue.push(location);
         }
+        queue.push(location);
     }
     function triggerListeners(to, from, { direction, delta }) {
         const info = {
@@ -40200,7 +40200,10 @@ function addDevtools(app, router, matcher) {
                 return;
             const payload = activeRoutesPayload;
             // children routes will appear as nested
-            let routes = matcher.getRoutes().filter(route => !route.parent);
+            let routes = matcher.getRoutes().filter(route => !route.parent ||
+                // these routes have a parent with no component which will not appear in the view
+                // therefore we still need to include them
+                !route.parent.record.components);
             // reset match state to false
             routes.forEach(resetMatchStateOnRouteRecord);
             // apply a match state if there is a payload
@@ -40939,15 +40942,16 @@ function createRouter(options) {
                 }
                 triggerAfterEach(toLocation, from, failure);
             })
+                // avoid warnings in the console about uncaught rejections, they are logged by triggerErrors
                 .catch(noop);
         });
     }
     // Initialization and Errors
     let readyHandlers = useCallbacks();
-    let errorHandlers = useCallbacks();
+    let errorListeners = useCallbacks();
     let ready;
     /**
-     * Trigger errorHandlers added via onError and throws the error as well
+     * Trigger errorListeners added via onError and throws the error as well
      *
      * @param error - error to throw
      * @param to - location we were navigating to when the error happened
@@ -40956,7 +40960,7 @@ function createRouter(options) {
      */
     function triggerError(error, to, from) {
         markAsReady(error);
-        const list = errorHandlers.list();
+        const list = errorListeners.list();
         if (list.length) {
             list.forEach(handler => handler(error, to, from));
         }
@@ -40966,6 +40970,7 @@ function createRouter(options) {
             }
             console.error(error);
         }
+        // reject the error no matter there were error listeners or not
         return Promise.reject(error);
     }
     function isReady() {
@@ -41022,7 +41027,7 @@ function createRouter(options) {
         beforeEach: beforeGuards.add,
         beforeResolve: beforeResolveGuards.add,
         afterEach: afterGuards.add,
-        onError: errorHandlers.add,
+        onError: errorListeners.add,
         isReady,
         install(app) {
             const router = this;
@@ -41206,6 +41211,18 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -41236,7 +41253,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if (chunkId === "resources_js_views_Product_vue") return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Product_vue":1,"resources_js_views_NotFound_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
@@ -41428,6 +41445,11 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/nonce */
+/******/ 	(() => {
+/******/ 		__webpack_require__.nc = undefined;
 /******/ 	})();
 /******/ 	
 /************************************************************************/

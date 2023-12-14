@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body class="antialiased">
-        <div id="app">
+        <div id="app" class="h-screen">
             <router-view></router-view>
         </div>
     </body>
