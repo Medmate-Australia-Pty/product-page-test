@@ -3,39 +3,52 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
+use App\Exceptions\CustomErrors;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * A list of the exception types that are not reported.
-     *
-     * @var array<int, class-string<Throwable>>
-     */
-    protected $dontReport = [
-        //
-    ];
+    protected $dontReport = [];
 
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array<int, string>
-     */
     protected $dontFlash = [
         'current_password',
         'password',
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        //
+    }
+
+    public function report(Throwable $exception)
+    {
+        parent::report($exception);
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof CustomErrors) {
+            $this->logException($exception);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
+
+        if ($exception instanceof ValidationException) {
+            $this->logException($exception);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 422);
+        }
+
+        return parent::render($request, $exception);
+    }
+
+    private function logException(Throwable $exception)
+    {
+        Log::error('Exception caught: ' . $exception->getMessage(), ['exception' => $exception]);
     }
 }
