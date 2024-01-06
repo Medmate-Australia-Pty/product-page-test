@@ -46,7 +46,7 @@ class ProductController extends Controller
             $product->active = $requestData['active'];
             $product->save();
 
-            return response()->json($product, 201);
+            return response()->json(['message'=>'Record Created','data'=>$product], 201);
         } catch (\Exception $e) {
             Log::error('Error creating product: ' . $e->getMessage());
 
@@ -68,7 +68,7 @@ class ProductController extends Controller
             $products = $this->prodServiceObj->processProducts(Product::all());
 
             if ($products['code'] == 0) {
-                return response()->json(["message" => $products['message']], 404);
+                return response()->json(["message"=>'Record Found','data' => $products['message']], 404);
             }
 
             return response()->json(['data' => $products['data'], 'message' => $products['message']], 200);
