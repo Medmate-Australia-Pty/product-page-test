@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
+use Illuminate\Database\QueryException;
 use App\Exceptions\CustomErrors;
 use Illuminate\Support\Facades\Log;
 
@@ -17,7 +20,10 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-
+    protected function isUnknownDatabaseException(QueryException $exception)
+    {
+        return $exception->getCode() == 1049; 
+    }
     public function register()
     {
         //
@@ -33,15 +39,27 @@ class Handler extends ExceptionHandler
         if ($exception instanceof CustomErrors) {
             $this->logException($exception);
             return response()->json([
-                'message' => $exception->getMessage(),
+                'Error' => $exception->getMessage(),
             ], 500);
         }
 
         if ($exception instanceof ValidationException) {
             $this->logException($exception);
             return response()->json([
-                'message' => $exception->getMessage(),
+                'Error' => $exception->getMessage(),
             ], 422);
+        }
+        if ($exception instanceof ModelNotFoundException) {
+            $this->logException($exception);
+            return response()->json([
+                'Error' => $exception->getMessage(),
+            ], 422);
+        }
+        if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
+            return response()->json(['Error' => 'Not Found'], 404);
+        }
+        if ($exception instanceof QueryException && $this->isUnknownDatabaseException($exception)) {
+            return response()->json(['Error'=>'Please run create_database_and_user.sql and migrations.'], 500);
         }
 
         return parent::render($request, $exception);

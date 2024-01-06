@@ -1,0 +1,3 @@
+bash ```
+mysql -u your_mysql_user -p < create_database_and_user.sql
+```

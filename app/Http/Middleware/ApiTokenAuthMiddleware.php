@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class ApiTokenAuthMiddleware
 {
     public function handle($request, Closure $next)
-    {
+    {   try{
         if (!$request->header('Authorization')) {
             return response()->json(['error' => 'No Authorization Token Found'], 401);
         }
@@ -18,6 +18,9 @@ class ApiTokenAuthMiddleware
             return response()->json(['error' => 'Unauthorized token'], 401);
         }
 
-        return $next($request);
+        return $next($request);}
+        catch(\Exception $e){
+            throw $e;
+        }
     }
 }
