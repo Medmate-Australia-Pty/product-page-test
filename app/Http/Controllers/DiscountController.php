@@ -16,7 +16,11 @@ class DiscountController extends Controller
     {
         $this->validator = new ValidationService();
     }
-    //
+    /*
+     * Display all discounts.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         //
@@ -29,6 +33,12 @@ class DiscountController extends Controller
             throw CustomErrors::make();
         }
     }
+    /*
+     * Store a newly created discount For the specified  product.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //
@@ -56,6 +66,12 @@ class DiscountController extends Controller
             throw CustomErrors::make($e);
         }
     }
+    /*
+     * Display discount for specified product.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function history($id){
         try{
         $history = ProductDiscounts::where('product_id',$id)->get();

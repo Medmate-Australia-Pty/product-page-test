@@ -6,7 +6,14 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 
 class ApiTokenAuthMiddleware
-{
+{   /**
+    * Handle auth verification on incoming requests.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \Closure  $next
+    *
+    * @return mixed
+    */
     public function handle($request, Closure $next)
     {   try{
         if (!$request->header('Authorization')) {

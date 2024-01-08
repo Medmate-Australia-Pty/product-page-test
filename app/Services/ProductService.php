@@ -7,7 +7,11 @@ class ProductService
     private $productModel;
 
     
-
+    /**
+     * Cretes the json respone. Attached images to response, and calculates discounts.
+     *
+     * @return void
+     */
     public function processProducts(Collection $products): array
     {   
         foreach ($products as $product) {

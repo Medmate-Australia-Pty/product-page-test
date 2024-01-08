@@ -20,7 +20,13 @@ class ProductController extends Controller
         $this->validator = $validator;
         $this->prodServiceObj = $prodServiceObj;
     }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         try {
@@ -61,7 +67,13 @@ class ProductController extends Controller
             return response()->json(["message" => "Error creating product", "data" => []], 422);
         }
     }
-
+    /**
+     * Display all products
+     *
+     * 
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         try {
@@ -91,7 +103,11 @@ class ProductController extends Controller
             throw CustomErrors::make();
         }
     }
-
+     /**
+      * Update the specified resource in storage.
+      * @param  \Illuminate\Http\Request  $request,$id
+        * @return \Illuminate\Http\Response
+      */
     public function update(Request $request, $id)
     {
         try {
@@ -122,7 +138,11 @@ class ProductController extends Controller
             throw CustomErrors::make();
         }
     }
-
+    /**
+     * Remove the specified resource from storage.
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         try {

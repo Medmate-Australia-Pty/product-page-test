@@ -17,7 +17,14 @@ class UserController extends Controller
     {
         $this->validator = $validator;
     }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         try {
@@ -44,7 +51,14 @@ class UserController extends Controller
             throw CustomErrors::make();
         }
     }
-
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request)
     {
         $user = User::where('email', $request->email)->first();

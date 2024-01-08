@@ -96,7 +96,12 @@ class PhotoController extends Controller
     }catch (\Exception $e){
         throw CustomErrors::make();
     }
-}
+}   /**
+     * Display the specified image.
+     *
+     * @param  string  $filename
+     * @return \Illuminate\Http\Response
+     */
     public function getImage($filename)
     {
         try{

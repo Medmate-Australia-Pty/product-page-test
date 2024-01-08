@@ -3,6 +3,11 @@ namespace App\Services;
 use App\Models\ProductDiscounts;
 
 class UpdateDiscounts{
+    /**
+     * Handles updation of Discounts.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function updateDiscount($request){
         try {
             
