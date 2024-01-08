@@ -36,8 +36,15 @@ class PhotoController extends Controller
      */
     use ProductImageTrait;
     public function store(Request $request)
-    {
+    {   
+        if ($request->id == null){
+            throw CustomErrors::make("Please Provide id",422);
+        }
+        if ($request->file('file') == null){
+            throw CustomErrors::make("Please Provide image",422);
+        }
         try{
+            
             $path = $this->verifyAndUpload($request);
             ProductImage::create([
                 'product_id' => $request->id,
