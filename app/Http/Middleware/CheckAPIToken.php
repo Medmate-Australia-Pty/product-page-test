@@ -18,7 +18,7 @@ class CheckAPIToken
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::guard('sanctum')->check()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json(['error' => 'Unauthenticated Access'], 401);
         }
 
         return $next($request);
