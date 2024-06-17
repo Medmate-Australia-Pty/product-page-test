@@ -73,7 +73,6 @@ class ProductController extends Controller
     // images
     public function addProductImages(Request $request, $id)
     {
-
         $validator = Validator::make($request->all(), [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
